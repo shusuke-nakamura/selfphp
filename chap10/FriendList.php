@@ -11,4 +11,8 @@ class FriendList implements IteratorAggregate {
   public function add(Person $p) {
     $this->list[] = $p;
   }
+
+  public function __invoke($index) {
+    return $this->list[$index];
+  }
 }

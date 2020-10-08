@@ -13,6 +13,22 @@ class MyMail {
     return $this->headers[$name];
   }
 
+  public function __isset($name) {
+    return isset($this->headers[$name]);
+  }
+
+  public function __unset($name) {
+    unset($this->headers[$name]);
+  }
+
+  public function __call($name, $args) {
+    if (count($args) === 0) {
+      return $this->headers[$name];
+    } else {
+      $this->headers[$name] = $args[0];
+    }
+  }
+
   public function send() {
     foreach ($this->headers as $key => $value) {
       $key = str_replace('_', '-', $key);
