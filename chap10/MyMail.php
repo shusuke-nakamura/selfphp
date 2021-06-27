@@ -1,10 +1,20 @@
 <?php
-class Mail
+class MyMail
 {
     public $to;
     public $subject;
     public $message;
     private $headers = [];
+
+    public function __iset($name)
+    {
+        return isset($this->headers[$name]);
+    }
+
+    public function __unset($name)
+    {
+        unset($this->headers[$name]);
+    }
 
     public function __set($name, $value)
     {
@@ -14,6 +24,15 @@ class Mail
     public function __get($name)
     {
         return $this->headers[$name];
+    }
+
+    public function __call($name, $args)
+    {
+        if (count($args) === 0) {
+            return $this->headers[$name];
+        } else {
+            $this->headers[$name] = $args[0];
+        }
     }
 
     public function send()

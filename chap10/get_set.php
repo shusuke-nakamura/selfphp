@@ -1,7 +1,7 @@
 <?php
 require_once 'MyMail.php';
 
-$m = new Mail();
+$m = new MyMail();
 $m->to = "shuchan.galaxy@gmail.com";
 $m->subject = 'テストメール';
 $m->message = 'こんにちは、MyMailクラスです。';
