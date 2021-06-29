@@ -1,6 +1,11 @@
 <?php
 require_once '../DbManager.php';
 
+session_start();
+if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+    die('不正なアクセスが行われました。');
+}
+
 try {
     $db = getDb();
 
@@ -12,7 +17,7 @@ try {
     $stt->bindValue(':published', $_POST['published']);
     $stt->execute();
 
-    header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']).'/insert_form.php');
+    header('Location: http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/insert_form.php');
 } catch (PDOException $e) {
     print "エラーメッセージ：{$e->getMessage()}";
 }
